@@ -1,3 +1,14 @@
+<section>
+  <p>Upcoming Holidays:</p>
+  <ol>
+    <% @holidays.each do |holiday| %>
+      <li id="holiday-<%= holiday.name %>">
+        <%= holiday.name %>, on <%= holiday.date %>
+      </li>
+    <% end %>
+  </ol>
+</section>
+
 <ul>
   <% @discounts.each do |discount| %>
     <li id="discounted-item-<%= discount.id %>">
