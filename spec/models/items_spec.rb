@@ -20,7 +20,7 @@ RSpec.describe Item, type: :model do
 
       @item_1 = create(:item, merchant: @merchant, status: 0)
       @item_2 = create(:item, merchant: @merchant, status: 0)
-      @item_3 = create(:item, merchant: @merchant, status: 1)
+      @item_3 = create(:item, merchant: @merchant, status: 0)
       @item_4 = create(:item, merchant: @merchant, status: 1)
       @item_5 = create(:item, merchant: @merchant, status: 1)
       @item_6 = create(:item, merchant: @merchant, status: 1)
@@ -59,15 +59,15 @@ RSpec.describe Item, type: :model do
 
     describe '::disabled_items' do
       it 'finds rows where items are disabled' do
-        expect(Item.disabled_items).to eq([@item_1, @item_2, @item_6])
-        expect(Item.disabled_items).to_not eq([@item_3, @item_4, @item_5])
+        expect(Item.disabled_items).to eq([@item_1, @item_2, @item_3])
+        expect(Item.disabled_items).to_not eq([@item_4, @item_5, @item_6])
       end
     end
 
     describe '::enabled_items' do
       it 'finds rows where items are enabled' do
-        expect(Item.enabled_items).to eq([@item_3, @item_4, @item_5])
-        expect(Item.enabled_items).to_not eq([@item_1, @item_2, @item_6])
+        expect(Item.enabled_items).to eq([@item_4, @item_5, @item_6])
+        expect(Item.enabled_items).to_not eq([@item_1, @item_2, @item_3])
       end
     end
 
