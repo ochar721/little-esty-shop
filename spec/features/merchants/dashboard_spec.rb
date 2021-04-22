@@ -107,4 +107,8 @@ RSpec.describe "Merchant Dashboard" do
       expect(page).not_to have_content(@item_5.name)
     end
   end
+
+  it 'has a link to view all discounts' do
+    expect(page).to have_link("My Discounts")
+  end
 end
