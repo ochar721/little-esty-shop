@@ -1,3 +1,4 @@
+<%= link_to "Create New Discount", "/merchant/#{@merchant.id}/bulk_discounts/new", method: :get %>
 <section>
   <p>Upcoming Holidays:</p>
   <ol>
@@ -12,7 +13,7 @@
 <ul>
   <% @discounts.each do |discount| %>
     <li id="discounted-item-<%= discount.id %>">
-      <%= link_to "#{discount.id}", "/merchant/#{@merchant.id}/bulk_discounts/#{discount.id}" %> Percentage discount: <%= discount.percent_discount * 100 %>%, Quantity threshold: <%= discount.quantity_threshold %>
+      <%= link_to "#{discount.id}", "/merchant/#{@merchant.id}/bulk_discounts/#{discount.id}" %>, Percentage discount: <%= discount.percent_discount * 100 %>%, Quantity threshold: <%= discount.quantity_threshold %>
     </li>
   <% end %>
 </ul>
