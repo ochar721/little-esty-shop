@@ -61,7 +61,7 @@ RSpec.describe "Merchant Bulk Discounts Index" do
     visit "/merchant/#{@merchant.id}/bulk_discounts"
   end
 
-  it 'shows a section with upcoming holidays and thre 3 upcoming US holidays are listed' do
+  it 'shows a section with upcoming holidays and 3 upcoming US holidays are listed' do
     expect(page).to have_content("Upcoming Holidays:")
     # within("#holiday-#{@holiday_1.name}") do
     #   expect(page).to have_content(@holiday_1.date)
@@ -71,5 +71,13 @@ RSpec.describe "Merchant Bulk Discounts Index" do
       expect(page).to have_content(@holiday_2.name)
       expect(page).to have_content(@holiday_3.date)
       expect(page).to have_content(@holiday_3.name)
+  end
+
+  it 'shows a link to create a new bulk discount that I can click on' do
+    expect(page).to have_link("Create New Discount")
+
+    click_link ("Create New Discount")
+
+    expect(current_path).to eq("/merchant/#{@merchant.id}/bulk_discounts/new")
   end
 end
