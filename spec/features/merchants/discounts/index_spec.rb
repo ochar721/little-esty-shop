@@ -80,4 +80,24 @@ RSpec.describe "Merchant Bulk Discounts Index" do
 
     expect(current_path).to eq("/merchant/#{@merchant.id}/bulk_discounts/new")
   end
+
+  it 'shows a link next to each bulk discount to delete it' do
+    within("#discounted-item-#{@discount_1.id}") do
+      expect(page).to have_link("Delete discount #{@discount_1.id}")
+    end
+
+    within("#discounted-item-#{@discount_2.id}") do
+      expect(page).to have_link("Delete discount #{@discount_2.id}")
+    end
+  end
+
+  it 'can delete a bulk discount' do 
+    within("#discounted-item-#{@discount_2.id}") do
+      click_link "Delete discount #{@discount_2.id}"
+    end
+
+    expect(current_path).to eq("/merchant/#{@merchant.id}/bulk_discounts")
+
+    expect(page).to_not have_content(@discount_2.id)
+  end
 end
