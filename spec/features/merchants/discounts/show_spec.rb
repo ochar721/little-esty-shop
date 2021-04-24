@@ -60,4 +60,10 @@ RSpec.describe "Merchant Bulk Discounts Index" do
     expect(page).to have_content(@discount_1.quantity_threshold)
     expect(page).to have_content(@discount_1.percent_discount  * 100)
   end
+
+  it 'shows a link to edit the bulk discount that I can click on' do
+    expect(page).to have_link("Edit #{@discount_1.id}")
+    click_link ("Edit #{@discount_1.id}")
+    expect(current_path).to eq("/merchant/#{@merchant.id}/bulk_discounts/#{@discount_1.id}/edit")
+  end
 end
