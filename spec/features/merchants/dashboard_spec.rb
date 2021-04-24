@@ -4,6 +4,9 @@ RSpec.describe "Merchant Dashboard" do
   before(:each) do
     @merchant = create(:merchant)
 
+    @discount1 = @merchant.bulk_discounts.create(percent: 20, quantity_threshold: 40)
+    @discount2 = @merchant.bulk_discounts.create(percent: 30, quantity_threshold: 70)
+
     @item_1 = create(:item, merchant: @merchant)
     @item_2 = create(:item, merchant: @merchant)
     @item_3 = create(:item, merchant: @merchant)
@@ -105,6 +108,25 @@ RSpec.describe "Merchant Dashboard" do
 
       expect(page).not_to have_content(@item_2.name)
       expect(page).not_to have_content(@item_5.name)
+    end
+  end
+
+  it "has a link to my discounts" do
+    expect(page).to have_link("My Discounts")
+    click_link("My Discounts")
+
+    expect(current_path).to eq("/merchant/#{@merchant.id}/bulk_discounts")
+    expect(page).to have_content("Discounts for #{@merchant.name}")
+
+    within("#bulk_discounts") do
+      expect(page).to have_content(@discount1.percent)
+      expect(page).to have_content(@discount1.quantity_threshold)
+      expect(page).to have_content(@discount1.percent)
+      expect(page).to have_content(@discount2.quantity_threshold)
+
+      expect(page).to have_link("Discount #{@discount1.id}")
+      click_link("Discount #{@discount1.id}")
+      expect(current_path).to eq("/merchant/#{@merchant.id}/bulk_discounts/#{@discount1.id}")
     end
   end
 end
