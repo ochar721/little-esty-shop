@@ -15,8 +15,7 @@ RSpec.describe "Bulk Discount New Page" do
       expect(current_path).to eq("/merchant/#{@merchant.id}/bulk_discounts")
 
       expect(page).to have_content("Fathers Day")
-      exepct(current_path).to eq("/merchant/#{@merchant.id}/bulk_discounts")
+      expcct(current_path).to eq("/merchant/#{@merchant.id}/bulk_discounts")
+      expec(page).to have("Fathers Day")
     end
 end
-
-# And I see my new bulk discount listed

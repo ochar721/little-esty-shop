@@ -2,13 +2,13 @@
 <p><%=link_to "Create Discount", "/merchant/#{@merchant.id}/bulk_discounts/new"%></p>
 
   <section id="bulk_discounts">
+    <h2>Current Discounts</h2>
     <% @discounts.each do |discount| %>
-
-    <p>Name: <%=discount.name%> | Percent: <%= discount.percent%> | Quantity Threshold: <%= discount.quantity_threshold%> <%=link_to "Discount #{discount.name}", "/merchant/#{@merchant.id}/bulk_discounts/#{discount.id}"%>|<%=link_to "Delete #{discount.name}",  "/merchant/#{@merchant.id}/bulk_discounts/#{discount.id}", method: :delete%></p>
+    <p>Name: <%=discount.name%> | Percent: <%= discount.percent%> | Quantity Threshold: <%= discount.quantity_threshold%> <%=link_to "Discount #{discount.name}", "/merchant/#{@merchant.id}/bulk_discounts/#{discount.id}"%>|<%=link_to "Delete #{discount.name}",  "/merchant/#{@merchant.id}/bulk_discounts/#{discount.id}", method: :delete, local: true%></p>
     <% end %>
   </section>
 
 
   <section>
-    <p>Upcoming Holidays</p>
+    <h2>Upcoming Holidays</h2>
   </section>
