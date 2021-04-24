@@ -53,17 +53,19 @@ RSpec.describe "Merchant Bulk Discounts Index" do
 
     @discount_1 = @merchant.bulk_discounts.create!(percent_discount: 0.2, quantity_threshold: 3)
 
-    visit "/merchant/#{@merchant.id}/bulk_discounts/#{@discount_1.id}"
+    visit "/merchant/#{@merchant.id}/bulk_discounts/#{@discount_1.id}/edit"
   end
 
-  it 'shows the bulk discount attributes' do
-    expect(page).to have_content(@discount_1.quantity_threshold)
-    expect(page).to have_content(@discount_1.percent_discount  * 100)
-  end
+  it 'shows the prepoulated form that I can refill out and submit' do
+    expect(page).to have_content("Percent discount")
+    expect(page).to have_content("Quantity threshold")
 
-  it 'shows a link to edit the bulk discount that I can click on' do
-    expect(page).to have_link("Edit #{@discount_1.id}")
-    click_link ("Edit #{@discount_1.id}")
-    expect(current_path).to eq("/merchant/#{@merchant.id}/bulk_discounts/#{@discount_1.id}/edit")
+    fill_in "Percent discount", with: 0.4
+    fill_in "Quantity threshold", with: 15
+    click_button "Submit"
+
+    expect(current_path).to eq("/merchant/#{@merchant.id}/bulk_discounts/#{@discount_1.id}")
+    expect(page).to have_content("40.0%")
+    expect(page).to have_content("15")
   end
 end

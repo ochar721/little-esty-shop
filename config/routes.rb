@@ -13,6 +13,6 @@ Rails.application.routes.draw do
     patch '/invoices/:invoice_id/invoice_items/:invoice_item_id', to: 'invoice_items#update'
 
     resources :items, only: [:index, :show, :edit, :update, :new, :create]
-    resources :bulk_discounts, only: [:index, :show, :new, :create, :destroy]
+    resources :bulk_discounts
   end
 end
