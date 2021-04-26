@@ -31,6 +31,7 @@ RSpec.describe "Merchant Invoices Show" do
 
   it 'can see total revenue from all items on invoice' do
     expect(page).to have_content(@invoice_1.invoice_items.total_revenue)
+    expect(page).to have_content(@invoice_1.total_discounted_revenue)
   end
 
   it 'can update item status on invoice' do

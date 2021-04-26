@@ -6,6 +6,7 @@
 <p>Status: <%= @invoice.status %></p>
 <p>Created on: <%= @invoice.created_at.strftime("%A, %B %d, %Y") %></p>
 <p>Total Revenue: $<%= @invoice_items.total_revenue %></p>
+<p>Total Revenue with Discount: $<%= @invoice.total_discounted_revenue %></p>
 
 <h3>Customer:</h3>
 <p><%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %></p>
@@ -24,5 +25,3 @@
     <% end %>
   </div>
 <% end %>
-
-<h3>Discounted Revenue</h3>
