@@ -35,10 +35,9 @@ class InvoiceItem < ApplicationRecord
   end
 
   def id_for_discount
-    quantity = self.quantity
     bulk_discounts
     .order(:percent_discount)
-    .where("quantity_threshold <= ?", quantity)
+    .where("quantity_threshold <= ?", self.quantity)
     .pluck(:id)
     .last
   end
