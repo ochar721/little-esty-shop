@@ -5,3 +5,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+BulkDiscount.destroy_all
+
+20.times do
+  BulkDiscount.create(name: ["Halloween", "Christmas", "Ksenyia Day"].sample, percent: [20, 5, 10].sample, quantity_threshold: [4, 5, 8, 10].sample, merchant_id: [1, 2].sample )
+end

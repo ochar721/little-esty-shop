@@ -15,8 +15,18 @@ RSpec.describe "Bulk Discount New Page" do
       expect(current_path).to eq("/merchant/#{@merchant.id}/bulk_discounts")
 
       expect(page).to have_content("Fathers Day")
-      exepct(current_path).to eq("/merchant/#{@merchant.id}/bulk_discounts")
+      expect(current_path).to eq("/merchant/#{@merchant.id}/bulk_discounts")
+      expect(page).to have_content("Fathers Day")
     end
-end
 
-# And I see my new bulk discount listed
+  it "I dont fill in the entire form with valid data I then see a message asking me to fill out the form" do
+
+    fill_in "Name", with: "Fathers Day"
+    fill_in "Percent", with: ""
+    fill_in "Quantity threshold", with: 40
+    click_button "Submit"
+    expect(current_path).to eq("/merchant/#{@merchant.id}/bulk_discounts/new")
+
+      expect(page).to have_content("Please fill in all fields")
+  end
+end

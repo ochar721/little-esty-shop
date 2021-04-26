@@ -7,9 +7,9 @@ class HolidayService
 
   def self.get_holidays
     response = conn.get('/Api/v2/NextPublicHolidays/US')
-    holidays =   JSON.parse(response.body, symbolize_names: true)
+    holidays = JSON.parse(response.body, symbolize_names: true)
     holidays[0..2].map do |day|
-      HolidayService.new
+      Holiday.new(day)
     end
   end
 end
