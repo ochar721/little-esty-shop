@@ -23,8 +23,3 @@ RSpec.describe "Bulk Discount Delete Discount" do
     end
   end
 end
-
-#
-# When I click this link
-# Then I am redirected back to the bulk discounts index page
-# And I no longer see the discount listed

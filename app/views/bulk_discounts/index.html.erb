@@ -11,4 +11,7 @@
 
   <section>
     <h2>Upcoming Holidays</h2>
+    <% @national_holidays.each do |holiday|%>
+    <p><%= holiday.name%> on <%= holiday.date %></p>
+    <%end%>
   </section>

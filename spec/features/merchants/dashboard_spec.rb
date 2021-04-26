@@ -4,8 +4,8 @@ RSpec.describe "Merchant Dashboard" do
   before(:each) do
     @merchant = create(:merchant)
 
-    @discount1 = @merchant.bulk_discounts.create(name: "Halloween" percent: 20, quantity_threshold: 40)
-    @discount2 = @merchant.bulk_discounts.create(name: "Mother's Day"percent: 30, quantity_threshold: 70)
+    @discount1 = @merchant.bulk_discounts.create(name: "Halloween", percent: 20, quantity_threshold: 40)
+    @discount2 = @merchant.bulk_discounts.create(name: "Mother's Day", percent: 30, quantity_threshold: 70)
 
     @item_1 = create(:item, merchant: @merchant)
     @item_2 = create(:item, merchant: @merchant)
@@ -126,8 +126,8 @@ RSpec.describe "Merchant Dashboard" do
       expect(page).to have_content(@discount2.percent)
       expect(page).to have_content(@discount2.quantity_threshold)
 
-      expect(page).to have_link("Discount #{@discount1.id}")
-      click_link("Discount #{@discount1.id}")
+      expect(page).to have_link("Discount #{@discount1.name}")
+      click_link("Discount #{@discount1.name}")
       expect(current_path).to eq("/merchant/#{@merchant.id}/bulk_discounts/#{@discount1.id}")
     end
   end
