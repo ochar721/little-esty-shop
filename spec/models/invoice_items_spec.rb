@@ -84,4 +84,27 @@ RSpec.describe InvoiceItem, type: :model do
       end
     end
   end
+
+  describe 'instance methods' do
+    before(:each) do
+      @merchant = Merchant.create!(name: 'Ice Cream Parlour')
+      @item_1 = @merchant.items.create!(name: 'Ice Cream Scoop', description: 'scoops ice cream', unit_price: 13)
+      @item_2 = @merchant.items.create!(name: 'Ice Cream Cones', description: 'holds the ice cream', unit_price: 10)
+      @item_3 = @merchant.items.create!(name: 'Sprinkles', description: 'makes ice cream pretty', unit_price: 3)
+      @customer = Customer.create!(first_name: 'Stuart', last_name: 'Little')
+      @invoice_1 = Invoice.create!(status: 0, customer_id: "#{@customer.id}")
+      @invoice_item_1 = InvoiceItem.create!(item_id: @item_1.id, invoice_id: @invoice_1.id, quantity: 1, unit_price: 13, status: 0)
+      @invoice_item_2 = InvoiceItem.create!(item_id: @item_2.id, invoice_id: @invoice_1.id, quantity: 1, unit_price: 10, status: 0)
+      @invoice_item_3 = InvoiceItem.create!(item_id: @item_3.id, invoice_id: @invoice_1.id, quantity: 3, unit_price: 3, status: 0)
+      @discount_1 = @merchant.bulk_discounts.create!(percent_discount: 0.2, quantity_threshold: 3)
+    end
+
+    describe '#id_for_discount' do
+      it 'finds the bulk_discount id for a specific invoice_item or returns nil if there is no applicable bulk discount' do
+        expect(@invoice_item_1.id_for_discount).to eq(nil)
+        expect(@invoice_item_2.id_for_discount).to eq(nil)
+        expect(@invoice_item_3.id_for_discount).to eq(@discount_1.id)
+      end
+    end
+  end
 end

@@ -66,9 +66,28 @@ RSpec.describe "Merchant Invoices Show" do
   end
 
   it 'shows total revenue for my merchant that includes bulk discounts' do
-    # @merchant.invoices.last.invoice_items.total_revenue => $32
+    #@merchant.invoices.last.invoice_items.total_revenue => $32
     #@merchant.invoices.last.discounted_revenue => $30.2, 20% off $9 is $1.80
     expect(page).to have_content("Total Revenue w/ discounts applied: $#{@merchant.invoices.first.discounted_revenue}0")
     expect(page).to have_content("$30.20")
+  end
+
+  it 'shows a link for the show page for the bulk discount if any were applied' do
+    within("#invoice_item-#{@invoice_item_1.id}") do
+      expect(page).to_not have_link("#{@discount_1.id}")
+      expect(page).to have_content("There are no discounts for invoice item, #{@invoice_item_1.item.name}.")
+    end
+
+    within("#invoice_item-#{@invoice_item_2.id}") do
+      expect(page).to_not have_link("#{@discount_1.id}")
+      expect(page).to have_content("There are no discounts for invoice item, #{@invoice_item_2.item.name}.")
+    end
+
+    within("#invoice_item-#{@invoice_item_3.id}") do
+      expect(page).to have_link("#{@discount_1.id}")
+      click_link "#{@discount_1.id}"
+    end
+
+    expect(current_path).to eq("/merchant/#{@merchant.id}/bulk_discounts/#{@discount_1.id}")
   end
 end

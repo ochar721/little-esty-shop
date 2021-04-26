@@ -33,4 +33,13 @@ class InvoiceItem < ApplicationRecord
     order('invoices.created_at').
     where.not(status: 2)
   end
+
+  def id_for_discount
+    quantity = self.quantity
+    bulk_discounts
+    .order(:percent_discount)
+    .where("quantity_threshold <= ?", quantity)
+    .pluck(:id)
+    .last
+  end
 end
