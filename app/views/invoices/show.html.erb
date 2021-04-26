@@ -6,6 +6,13 @@
 <p>Status: <%= @invoice.status %></p>
 <p>Created on: <%= @invoice.created_at.strftime("%A, %B %d, %Y") %></p>
 <p>Total Revenue w/ discounts applied: <%= number_to_currency(@invoice.discounted_revenue) %></p>
+<p>To Discount: <% @invoice.invoice_items.each do |invoice_item| %>
+    <% if invoice_item.id_for_discount.nil? %>
+      <p>No discounts for this invoice.</p>
+    <% else %>
+      <%= link_to "Discount: #{invoice_item.id_for_discount}", "merchant/#{@merchant.id}/bulk_discounts/#{invoice_item.id_for_discount}", method: :get %>
+    <% end %>
+  <% end %>
 <h3>Customer:</h3>
 <p><%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %></p>
 
