@@ -30,9 +30,7 @@ RSpec.describe Invoice, type: :model do
 
     describe '#total_revenue' do
       it "gets sum of revenue for all invoice items on the invoice" do
-        invoice17 = Invoice.find(17)
-
-        expect(invoice17.total_revenue).to eq(0.2474251e7)
+        expect(@invoice_1.invoice_items.total_revenue).to eq(32)
       end
     end
 
