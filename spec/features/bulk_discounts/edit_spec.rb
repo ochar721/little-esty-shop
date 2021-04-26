@@ -12,6 +12,12 @@ RSpec.describe "Bulk Discount Edit Discount" do
   it "Theres a link to edit the discount" do
     expect(page).to have_link("Edit Discount")
     click_link("Edit Discount")
+
+    expect(current_path).to eq("/merchant/#{@merchant.id}/bulk_discounts/#{@discount1.id}/edit")
+    fill_in 'Name', with: "Ice SCREAM"
+    fill_in 'Percent', with: 21
+    fill_in 'Quantity threshold', with:7
+    click_button 'Update Bulk discount'
   end
 end
 
