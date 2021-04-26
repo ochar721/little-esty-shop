@@ -5,8 +5,7 @@
 <h2>Invoice #<%= @invoice.id %></h2>
 <p>Status: <%= @invoice.status %></p>
 <p>Created on: <%= @invoice.created_at.strftime("%A, %B %d, %Y") %></p>
-<p>Total Revenue: $<%= @invoice_items.total_revenue %></p>
-
+<p>Total Revenue w/ discounts applied: <%= number_to_currency(@invoice.discounted_revenue) %></p>
 <h3>Customer:</h3>
 <p><%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %></p>
 
