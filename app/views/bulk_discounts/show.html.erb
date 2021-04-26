@@ -4,4 +4,4 @@
 <p>Percent: <%=@discount.percent%></p>
 <p>Quantity: <%=@discount.quantity_threshold%></p>
 
-<p><%=link_to "Edit Discount", "/merchant/#{@merchant.id}/bulk_discounts/#{@discount.id}/edit", method: :patch, local: true %></p>
+<p><%=link_to "Edit Discount", "/merchant/#{@merchant.id}/bulk_discounts/#{@discount.id}/edit", method: :get, local: true %></p>
