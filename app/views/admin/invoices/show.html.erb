@@ -14,8 +14,8 @@
 </div>
 
 <p>Created on: <%= @invoice.created_at.strftime("%A, %B %d, %Y") %></p>
-<p>Total Revenue: <%= number_to_currency(@invoice_items.total_revenue, unit: "$", separator: ".", delimiter: "") %></p>
-
+<p>Total Revenue before Discounts: <%= number_to_currency(@invoice_items.total_revenue) %></p>
+<p>Total Revenue w/ Discounts Applied: <%= number_to_currency(@invoice.discounted_revenue) %></p>
 <h3>Customer:</h3>
 <p><%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %></p>
 
