@@ -30,10 +30,6 @@ RSpec.describe "Merchant Invoices Show" do
     expect(page).to have_content(@invoice_item_1.status)
   end
 
-  it 'can see total revenue from all items on invoice' do
-    expect(page).to have_content(@invoice_1.invoice_items.total_revenue)
-  end
-
   it 'can update item status on invoice' do
     within("#invoice_item-#{@invoice_item_1.id}") do
       select('packaged')
@@ -69,9 +65,9 @@ RSpec.describe "Merchant Invoices Show" do
     end
   end
 
-  it 'shows total revenue for my merchant that includesbulk discounts' do
-    # @merchant.invoices.last.invoice_items.total_revenue => $30.2, 20% off $9 is $1.80
-    #@merchant.invoices.last.discounted_revenue => 32
+  it 'shows total revenue for my merchant that includes bulk discounts' do
+    # @merchant.invoices.last.invoice_items.total_revenue => $32
+    #@merchant.invoices.last.discounted_revenue => $30.2, 20% off $9 is $1.80
     expect(page).to have_content("Total Revenue w/ discounts applied: $#{@merchant.invoices.first.discounted_revenue}0")
     expect(page).to have_content("$30.20")
   end
