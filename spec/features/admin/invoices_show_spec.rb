@@ -66,5 +66,10 @@ RSpec.describe "Admin Invoices Show Page" do
     within("#invoice-#{@invoice.id}") do
       expect(page.find("option[selected = selected]").text).to eq('cancelled')
     end
+
+
+    within("#invoice-#{@invoice.id}") do
+      expect(page.find("option[selected = selected]").text).to eq('cancelled')
+    end
   end
 end
