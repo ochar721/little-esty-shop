@@ -34,6 +34,9 @@ RSpec.describe InvoiceItem, type: :model do
       @customer_6 = create(:customer)
       @customer_7 = create(:customer)
 
+      @halloween = @merchant.bulk_discounts.create(name: "Halloween", percent: 20, quantity_threshold: 3)
+      @mothersday = @merchant.bulk_discounts.create(name: "Mother's Day", percent: 30, quantity_threshold: 70)
+
       @invoice_1 = Invoice.create!(status: 0, customer_id: @customer_1.id)
       @invoice_2 = Invoice.create!(status: 0, customer_id: @customer_2.id)
       @invoice_3 = Invoice.create!(status: 0, customer_id: @customer_3.id)
@@ -47,7 +50,7 @@ RSpec.describe InvoiceItem, type: :model do
       @invoice_item_3 = InvoiceItem.create!(item_id: @item_3.id, invoice_id: @invoice_4.id, quantity: 3, unit_price: 20, status: 1)
       @invoice_item_4 = InvoiceItem.create!(item_id: @item_4.id, invoice_id: @invoice_5.id, quantity: 4, unit_price: 20, status: 2)
       @invoice_item_5 = InvoiceItem.create!(item_id: @item_5.id, invoice_id: @invoice_6.id, quantity: 5, unit_price: 20, status: 2)
-      @invoice_item_5 = InvoiceItem.create!(item_id: @item_6.id, invoice_id: @invoice_7.id, quantity: 500, unit_price: 20, status: 0)
+      @invoice_item_5 = InvoiceItem.create!(item_id: @item_6.id, invoice_id: @invoice_7.id, quantity: 71, unit_price: 20, status: 0)
 
       @transaction_1 = Transaction.create!(credit_card_number: "123456789", credit_card_expiration_date: 1021, result: "success", invoice_id: "#{@invoice_1.id}")
       @transaction_2 = Transaction.create!(credit_card_number: "123456789", credit_card_expiration_date: 1021, result: "success", invoice_id: "#{@invoice_2.id}")
@@ -60,7 +63,7 @@ RSpec.describe InvoiceItem, type: :model do
 
     describe '::total_revenue' do
       it 'can calculate total revenue for all invoice_items' do
-        expect(InvoiceItem.total_revenue).to eq(10300)
+        expect(InvoiceItem.total_revenue).to eq(1720)
       end
     end
 
@@ -81,6 +84,16 @@ RSpec.describe InvoiceItem, type: :model do
         expect(InvoiceItem.items_not_shipped[1].id).to eq(@invoice_3.id)
         expect(InvoiceItem.items_not_shipped[2].id).to eq(@invoice_4.id)
         expect(InvoiceItem.items_not_shipped[3].id).to eq(@invoice_7.id)
+      end
+    end
+
+    describe 'instance methods' do
+      it "only checks discounts for discounts that meet the threshold" do
+        expect(@invoice_item_1.discount_check).to eq(nil)
+        expect(@invoice_item_2.discount_check).to eq(nil)
+        expect(@invoice_item_3.discount_check).to_not eq(nil)
+        expect(@invoice_item_4.discount_check).to_not eq(nil)
+        expect(@invoice_item_5.discount_check).to_not eq(nil)
       end
     end
   end
