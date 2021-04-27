@@ -16,12 +16,14 @@
   <div id="invoice_item-<%= invoice_item.id %>">
     <p>Item Name: <%= invoice_item.item.name %></p>
     <p>Quantity: <%= invoice_item.quantity %></p>
-    <p>Unit Price: <%= invoice_item.unit_price %>|</p>
+    <p>Unit Price: <%= invoice_item.unit_price %> </p>
+    
     <%= form_with url: "/merchant/#{@merchant.id}/invoices/#{@invoice.id}/invoice_items/#{invoice_item.id}", method: :patch do |form| %>
       <%= form.label :status, "Status: " %>
       <%= form.select :status, options_for_select(["pending", "packaged", "shipped"], selected: "#{invoice_item.status}") %>
       <%= form.submit "Update Item Status" %>
       <% end %>
+
       <% discount_id = invoice_item.discount_check %>
       <% if discount_id != nil %>
       <%= link_to "Applied Discount", merchant_bulk_discount_path(@merchant.id, discount_id)%>
