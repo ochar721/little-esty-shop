@@ -4,8 +4,11 @@
 <h2>My Items</h2>
 <h3><u>Disabled Items</u></h3>
 <ul>
-  <% @items.disabled_items.each do |item| %>
+  <% @items.disabled_items.each_with_index do |item, index| %>
     <li class="disabled_items" id="disabled-item-<%= item.id %>">
+      <div class='pics_in_a_row'>
+        <img class="img" src="https://picsum.photos/200/300?random=<%=index%>" width="50" height="50">
+      </div>
       <%= link_to "#{item.name}", "/merchant/#{@merchant.id}/items/#{item.id}" %>
       <%= button_to "Enable", "/merchant/#{@merchant.id}/items/#{item.id}", method: :patch, params: { item_status: item.status} %>
     </li>
@@ -14,8 +17,11 @@
 
 <h3><u>Enabled Items</u></h3>
 <ul>
-  <% @items.enabled_items.each do |item| %>
+  <% @items.enabled_items.each_with_index do |item, index| %>
     <li class="enabled_items" id="enabled-item-<%= item.id %>">
+      <div class='pics_in_a_row'>
+        <img class="img" src="https://picsum.photos/200/300?random=<%=index%>" width="50" height="50">
+      </div>
       <%= link_to "#{item.name}", "/merchant/#{@merchant.id}/items/#{item.id}" %>
       <%= button_to "Disable", "/merchant/#{@merchant.id}/items/#{item.id}", method: :patch, params: { item_status: item.status} %>
     </li>
@@ -24,8 +30,11 @@
 
 <h3><u>Top Items</u></h3>
 <ol>
-  <% @items.most_popular_items.each do |item| %>
+  <% @items.most_popular_items.each_with_index do |item, index| %>
     <li id="top-item-<%= item.id %>">
+      <div class='top_items'>
+        <img class="img" src="https://picsum.photos/200/300?random=<%=index%>" width="50" height="50">
+      </div>
       <%= link_to "#{item.name}", "/merchant/#{@merchant.id}/items/#{item.id}" %> - <%= number_to_currency(item.revenue) %><br>
       <p>Top sale date for <%= item.name %> was <%= item.invoice_items.best_item_sale_day.strftime("%A, %B %d, %Y") %></p>
     </li>
